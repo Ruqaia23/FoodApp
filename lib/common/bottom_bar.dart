@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/common/tab_index.dart';
+import 'package:multi_vendor/controllers/tab_index.dart';
 import 'package:multi_vendor/view/Cart/cart_page.dart';
 import 'package:multi_vendor/view/Home/home.dart';
 import 'package:multi_vendor/view/Profile/profile_page.dart';
