@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:multi_vendor/common/app_style.dart';
+import 'package:multi_vendor/common/reusable_text.dart';
+import 'package:multi_vendor/constants/constants.dart';
+import 'package:multi_vendor/constants/uidata.dart';
+import 'package:multi_vendor/view/category/widgets/category_tile.dart';
 
 class AllCategory extends StatelessWidget {
   const AllCategory({super.key});
@@ -8,7 +14,22 @@ class AllCategory extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Category'),
+        backgroundColor: kOffwhite,
+        title: ReusableText(
+          text: 'Categories',
+          style: appStyle(20, kgray, FontWeight.w600),
+        ),
+      ),
+      body: Container(
+        padding: EdgeInsets.only(left: 12.w, top: 20.h),
+        height: height,
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: List.generate(categories.length, (i) {
+            var category = categories[i];
+            return CategoryTile(category: category);
+          }),
+        ),
       ),
     );
   }

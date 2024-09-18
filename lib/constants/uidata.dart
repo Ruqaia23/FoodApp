@@ -22,7 +22,7 @@ List<dynamic> categories = [
     "title": "Pizza",
     "value": "pizza",
     "imageUrl":
-        "https://static.vecteezy.com/system/resources/thumbnails/024/589/160/small_2x/top-view-pizza-with-ai-generated-free-png.png",
+        "https://static.vecteezy.com/system/resources/thumbnails/037/275/552/small_2x/ai-generated-a-slice-of-pizza-is-shown-with-melted-cheese-free-png.png",
     "__v": 0
   },
   {
@@ -67,91 +67,91 @@ List<dynamic> categories = [
   }
 ];
 
-const restaurants = [
+List<dynamic> restaurants = [
   {
     "_id": "6530ebbcc9e72013e5b65933",
-    "title": "Lapisara Eatery",
-    "time": "6:00am - 9:00pm",
+    "title": "Eataly",
+    "time": "8:00AM - 1:00AM",
     "imageUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
+        "https://blog.resy.com/wp-content/uploads/2021/04/1Y0A9602-1200x675.jpg",
     "owner": "fdfsdfsdfs",
     "code": "41007428",
     "logoUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
-    "rating": 5,
-    "ratingCount": "6765",
+        "https://www.hudsonyardsnewyork.com/sites/default/files/styles/content_detail/public/2024-08/eataly.jpg?h=8c1ec22c&itok=cUTy7E_uhttps://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1Mj0DbrD0Pfm20ofM9x-W3tXjBi6np1Kn99o_MiuQw5jScIAO7MQnQpHVUYpU0SHiudI&usqp=CAU",
+    "rating": 4.5,
+    "ratingCount": "7,777",
     "coords": {
       "id": "2023",
-      "latitude": 37.78792117665919,
-      "longitude": -122.41325651079953,
-      "address": "698 Post St, San Francisco, CA 94109, United States",
-      "title": "Lapisara Eatery",
+      "latitude": 24.705147100027286,
+      "longitude": 46.70247614914269,
+      "address": "Al Sulimaniyah",
+      "title": "Eataly",
       "latitudeDelta": 0.0122,
       "longitudeDelta": 0.0221
     }
   },
   {
     "_id": "6530ea6bc9e72013e5b6592d",
-    "title": "Burger King",
-    "time": "6:00am - 9:00pm",
+    "title": "Sicilee Restaurant",
+    "time": "12:30PM - 2:00AM",
     "imageUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
+        "https://res.cloudinary.com/ded92d9xk/c_scale,w_500/djtqyisdozgswmuvmdlb.jpg",
     "owner": "sjgdsjgfjshhjs",
     "code": "41007428",
     "logoUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
-    "rating": 5,
-    "ratingCount": "3278",
+        "https://res.cloudinary.com/ded92d9xk/c_scale,w_240/gvidnf83bzi8qacr237d.jpg",
+    "rating": 4.4,
+    "ratingCount": "1,317",
     "coords": {
       "id": "2020",
-      "latitude": 37.785925590588505,
-      "longitude": -122.41007428687641,
-      "address": "333 O'Farrell St, San Francisco, CA 94102, United States",
-      "title": "Burger King",
+      "latitude": 24.705747155242815,
+      "longitude": 46.70335007068491,
+      "address": " Al Sulimaniyah",
+      "title": "Sicilee Restaurant",
       "latitudeDelta": 0.0122,
       "longitudeDelta": 0.0221
     }
   },
   {
     "_id": "6530eb66c9e72013e5b65931",
-    "title": "La Foods",
-    "time": "6:00am - 9:00pm",
+    "title": "Beit Karam",
+    "time": "11:00AM - 2:00AM",
     "imageUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
+        "https://images.deliveryhero.io/image/hungerstation/menuitem/image/2460206?width=256&quality=75",
     "owner": "fgdgdfgd",
     "code": "41007428",
     "logoUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
-    "rating": 5,
-    "ratingCount": "5666",
+        "https://pbs.twimg.com/profile_images/1342476626689449988/elcCckT-_400x400.jpg",
+    "rating": 4.3,
+    "ratingCount": "2,062",
     "coords": {
       "id": "2022",
-      "latitude": 37.787503258917035,
-      "longitude": -122.39854938269353,
-      "address": "333 O'Farrell St, San Francisco, CA 94102, United States",
-      "title": "La Foods",
+      "latitude": 24.710192230050367,
+      "longitude": 46.68763885910053,
+      "address": "Al Sulimaniyah",
+      "title": "Beit Karam",
       "latitudeDelta": 0.0122,
       "longitudeDelta": 0.0221
     }
   },
   {
     "_id": "6530eb23c9e72013e5b6592f",
-    "title": "Italian Restaurant",
-    "time": "6:00am - 9:00pm",
+    "title": "Five Guys",
+    "time": "11:00AM - 3:00AM",
     "imageUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
+        "https://tb-static.uber.com/prod/image-proc/processed_images/0c4e36863c3d330d7cb6b262f9d66401/30be7d11a3ed6f6183354d1933fbb6c7.jpeg",
     "owner": "sjgdsjgfjshhjs",
     "code": "41007428",
     "logoUrl":
-        "https://d326fntlu7tb1e.cloudfront.net/uploads/5c2a9ca8-eb07-400b-b8a6-2acfab2a9ee2-image001.webp",
-    "rating": 5,
-    "ratingCount": "3278",
+        "https://pbs.twimg.com/profile_images/918493706747080705/eT3NLcPB_400x400.jpg",
+    "rating": 4,
+    "ratingCount": "3,746",
     "coords": {
       "id": "2021",
-      "latitude": 37.78557922976825,
-      "longitude": -122.40722000299483,
-      "address": "333 O'Farrell St, San Francisco, CA 94102, United States",
-      "title": "Italian Restaurant",
+      "latitude": 24.704610603132302,
+      "longitude": 46.703649501443955,
+      "address": "Al Sulimaniyah",
+      "title": "Five Guys",
       "latitudeDelta": 0.0122,
       "longitudeDelta": 0.0221
     }
