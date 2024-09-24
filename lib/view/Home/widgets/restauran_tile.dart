@@ -38,7 +38,7 @@ class RestaurantTile extends StatelessWidget {
                     borderRadius: BorderRadius.all(
                       Radius.circular(12.r),
                     ),
-                    child: Stack(
+                    child: Row(
                       children: [
                         SizedBox(
                           width: 70.w,
@@ -48,49 +48,51 @@ class RestaurantTile extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        Positioned(
-                          bottom: 0,
-                          child: Container(
-                            padding: EdgeInsets.only(left: 6.w, bottom: 2.h),
-                            color: kgray.withOpacity(0.6),
-                            height: 16.h,
-                            width: width,
-                            child: RatingBarIndicator(
-                              rating: 5,
-                              itemCount: 5,
-                              itemBuilder: (context, i) => const Icon(
-                                Icons.star,
-                                color: KSecondary,
-                              ),
-                              itemSize: 15.h,
-                            ),
-                          ),
-                        ),
+                        // Positioned(
+                        //   bottom: 0,
+                        //   child: Container(
+                        //     padding: EdgeInsets.only(left: 6.w, bottom: 2.h),
+                        //     color: kgray.withOpacity(0.6),
+                        //     height: 16.h,
+                        //     width: width,
+                        //     child: RatingBarIndicator(
+                        //       rating: 5,
+                        //       itemCount: 5,
+                        //       itemBuilder: (context, i) => const Icon(
+                        //         Icons.star,
+                        //         color: KSecondary,
+                        //       ),
+                        //       itemSize: 15.h,
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
                   SizedBox(
                     width: 10.w,
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ReusableText(
-                          text: restaurants['title'],
-                          style: appStyle(11, Colors.black, FontWeight.w400)),
-                      ReusableText(
-                          text: "Delivery time ${restaurants['time']}",
-                          style: appStyle(11, kgray, FontWeight.w400)),
-                      SizedBox(
-                        width: width * 0.7,
-                        child: Text(
-                          restaurants['coords']['address'].toString(),
-                          overflow: TextOverflow.clip,
-                          style: appStyle(9, kgray, FontWeight.w400),
-                        ),
-                      )
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ReusableText(
+                            text: restaurants['title'],
+                            style: appStyle(11, Colors.black, FontWeight.w400)),
+                        ReusableText(
+                            text: "Delivery time ${restaurants['time']}",
+                            style: appStyle(11, kgray, FontWeight.w400)),
+                        SizedBox(
+                          width: width * 0.7,
+                          child: Text(
+                            restaurants['coords']['address'].toString(),
+                            overflow: TextOverflow.clip,
+                            style: appStyle(9, kgray, FontWeight.w400),
+                          ),
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
