@@ -5,15 +5,16 @@ import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/controllers/category_controller.dart';
+import 'package:multi_vendor/models/categories.dart';
 import 'package:multi_vendor/view/category/all.dart';
 
 class CategoryWidget extends StatelessWidget {
-  const CategoryWidget({
+  CategoryWidget({
     super.key,
     required this.category,
   });
 
-  final dynamic category;
+  CategoriesModel category;
 
   @override
   Widget build(BuildContext context) {
@@ -21,16 +22,16 @@ class CategoryWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (controller.categoryValue == category['_id']) {
+        if (controller.categoryValue == category.id) {
           controller.updateCategory = '';
           controller.updateTitle = '';
-        } else if (category['value'] == 'more') {
+        } else if (category.value == 'more') {
           Get.to(() => const AllCategory(),
               transition: Transition.fadeIn,
               duration: const Duration(milliseconds: 900));
         } else {
-          controller.updateCategory = category['_id'];
-          controller.updateTitle = category['_title'];
+          controller.updateCategory = category.id!;
+          controller.updateTitle = category.title!;
         }
       },
       child: Obx(
@@ -41,7 +42,7 @@ class CategoryWidget extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
               border: Border.all(
-                  color: controller.categoryValue == category['_id']
+                  color: controller.categoryValue == category.id
                       ? KSecondary
                       : kOffwhite,
                   width: .5.w)),
@@ -51,7 +52,7 @@ class CategoryWidget extends StatelessWidget {
                 height: 40.h,
                 width: 40.w,
                 child: Image.network(
-                  category['imageUrl'],
+                  category.imageUrl!,
                   fit: BoxFit.contain,
                 ),
               ),
@@ -59,7 +60,7 @@ class CategoryWidget extends StatelessWidget {
                 height: 5,
               ),
               ReusableText(
-                  text: category['title'],
+                  text: category.title!,
                   style: appStyle(12, Colors.black, FontWeight.normal))
             ],
           ),
