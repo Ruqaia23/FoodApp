@@ -7,7 +7,7 @@ import 'package:multi_vendor/models/hook_models/apierror.dart';
 import 'package:multi_vendor/models/hook_models/hook_result.dart';
 
 FetcHook useFetcCategories() {
-  final categoriesItem = useState<List<CategoriesModel>?>(null);
+  final categoriesItem = useState<List<CategoriesModel>?>([]);
   final isLoading = useState<bool>(false);
   final error = useState<Exception?>(null);
   final appiError = useState<ApiErrorModel?>(null);
@@ -15,19 +15,18 @@ FetcHook useFetcCategories() {
   Future<void> fetcData() async {
     isLoading.value = true;
 
-    try {} catch (e) {
+    try {
       Uri url = Uri.parse('${appBaseUrl}/api/category/random');
       final response = await http.get(url);
       //
       //
-      print(response.statusCode);
+      // print("${response.statusCode} gooddd cat");
 
       if (response.statusCode == 200) {
         categoriesItem.value = categoriesModelFromJson(response.body);
       } else {
         appiError.value = apisModelFromJson(response.body);
       }
-      // ignore: dead_code_catch_following_catch
     } catch (e) {
       error.value = e as Exception;
     } finally {

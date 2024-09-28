@@ -7,7 +7,8 @@ import 'package:multi_vendor/common/reusable_text.dart';
 import 'package:multi_vendor/constants/constants.dart';
 
 class RestaurantWidget extends StatelessWidget {
-  RestaurantWidget({
+  const RestaurantWidget({
+    super.key,
     required this.image,
     required this.logo,
     required this.title,
@@ -36,10 +37,10 @@ class RestaurantWidget extends StatelessWidget {
             color: Colors.white,
           ),
           child: ListView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             children: [
               Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: Stack(
                   children: [
                     ClipRRect(

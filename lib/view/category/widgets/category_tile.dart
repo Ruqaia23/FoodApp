@@ -19,7 +19,7 @@ class CategoryTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        Get.to(() => CategoryPage(),
+        Get.to(() => const CategoryPage(),
             transition: Transition.fadeIn,
             duration: const Duration(milliseconds: 900));
       },

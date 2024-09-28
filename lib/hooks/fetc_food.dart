@@ -1,35 +1,36 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_vendor/constants/constants.dart';
-
-import 'package:multi_vendor/models/categories.dart';
 import 'package:multi_vendor/models/hook_models/apierror.dart';
+import 'package:multi_vendor/models/hook_models/food_model.dart';
 import 'package:multi_vendor/models/hook_models/hook_result.dart';
 
-FetcHook useFetcAllCategories() {
-  final categoriesItem = useState<List<CategoriesModel>?>([]);
+FetcHook useFetcFood() {
+  final foods = useState<List<FoodsModel>?>([]);
   final isLoading = useState<bool>(false);
-  final error = useState<Exception?>(null);
+  final error = useState<dynamic>(
+      null); // Change to dynamic to handle different error types
   final appiError = useState<ApiErrorModel?>(null);
 
   Future<void> fetcData() async {
     isLoading.value = true;
 
     try {
-      Uri url = Uri.parse('${appBaseUrl}/api/category');
+      Uri url = Uri.parse('${appBaseUrl}/api/foods/recommendation/41007428');
       final response = await http.get(url);
-      print("${response.statusCode} gooddd cattt2 ");
-
-      //
-      //
+      // print("${response.statusCode} gooddd food 1");
+      // print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
-        categoriesItem.value = categoriesModelFromJson(response.body);
+        foods.value = foodsModelFromJson(response.body);
       } else {
         appiError.value = apisModelFromJson(response.body);
       }
     } catch (e) {
-      error.value = e as Exception;
+      // Handle any error without casting it to Exception
+      //  error.value = e is Exception ? e : Exception(e.toString());
+      debugPrint(e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -46,8 +47,9 @@ FetcHook useFetcAllCategories() {
   }
 
   return FetcHook(
-      data: categoriesItem.value,
-      isLoading: isLoading.value,
-      error: error.value,
-      refetch: refetch);
+    data: foods.value,
+    isLoading: isLoading.value,
+    error: error.value,
+    refetch: refetch,
+  );
 }

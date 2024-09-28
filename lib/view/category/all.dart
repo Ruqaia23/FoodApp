@@ -32,7 +32,7 @@ class AllCategory extends HookWidget {
         padding: EdgeInsets.only(left: 12.w, top: 20.h),
         height: height,
         child: isLoading
-            ? FoodsListShimmer()
+            ? const FoodsListShimmer()
             : ListView(
                 scrollDirection: Axis.vertical,
                 children: List.generate(categories!.length, (i) {

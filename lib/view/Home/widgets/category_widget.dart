@@ -8,6 +8,7 @@ import 'package:multi_vendor/controllers/category_controller.dart';
 import 'package:multi_vendor/models/categories.dart';
 import 'package:multi_vendor/view/category/all.dart';
 
+// ignore: must_be_immutable
 class CategoryWidget extends StatelessWidget {
   CategoryWidget({
     super.key,
@@ -52,7 +53,7 @@ class CategoryWidget extends StatelessWidget {
                 height: 40.h,
                 width: 40.w,
                 child: Image.network(
-                  category.imageUrl!,
+                  category.imageUrl ?? "",
                   fit: BoxFit.contain,
                 ),
               ),

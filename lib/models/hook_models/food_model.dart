@@ -16,13 +16,18 @@ class FoodsModel {
   String? code;
   bool? isAvailable;
   String? restaurant;
-  int? rating;
+  double? rating;
   String? ratingCount;
   String? description;
-  int? price;
+  double? price;
   List<Additives>? additives;
   List<String>? imageUrl;
   int? iV;
+  bool? promotion;
+  int? promotionPrice;
+  String? createdAt;
+  String? updatedAt;
+  bool? verified;
 
   FoodsModel(
       {this.sId,
@@ -40,7 +45,12 @@ class FoodsModel {
       this.price,
       this.additives,
       this.imageUrl,
-      this.iV});
+      this.iV,
+      this.promotion,
+      this.promotionPrice,
+      this.createdAt,
+      this.updatedAt,
+      this.verified});
 
   FoodsModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -64,6 +74,11 @@ class FoodsModel {
     }
     imageUrl = json['imageUrl'].cast<String>();
     iV = json['__v'];
+    promotion = json['promotion'];
+    promotionPrice = json['promotionPrice'];
+    createdAt = json['createdAt'];
+    updatedAt = json['updatedAt'];
+    verified = json['verified'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +101,11 @@ class FoodsModel {
     }
     data['imageUrl'] = this.imageUrl;
     data['__v'] = this.iV;
+    data['promotion'] = this.promotion;
+    data['promotionPrice'] = this.promotionPrice;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['verified'] = this.verified;
     return data;
   }
 }
