@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/common/shimmers/nearby_shimmer.dart';
 import 'package:multi_vendor/hooks/fetch_restaurants.dart';
-import 'package:multi_vendor/models/hook_models/restaurant_model.dart';
+import 'package:multi_vendor/models/restaurant_model.dart';
 import 'package:multi_vendor/view/Home/widgets/restaurant_widget.dart';
 
 class NearbyRestaurants extends HookWidget {

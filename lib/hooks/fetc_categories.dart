@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:multi_vendor/constants/constants.dart';
 
 import 'package:multi_vendor/models/categories.dart';
-import 'package:multi_vendor/models/hook_models/apierror.dart';
+import 'package:multi_vendor/models/apierror.dart';
 import 'package:multi_vendor/models/hook_models/hook_result.dart';
 
 FetcHook useFetcCategories() {

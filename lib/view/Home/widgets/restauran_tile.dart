@@ -1,12 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
 
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/models/hook_models/restaurant_model.dart';
+import 'package:multi_vendor/models/restaurant_model.dart';
 
+// ignore: must_be_immutable
 class RestaurantTile extends StatelessWidget {
   RestaurantTile({
     super.key,
@@ -88,7 +88,7 @@ class RestaurantTile extends StatelessWidget {
               height: 20.h,
               decoration: BoxDecoration(
                 color: restaurant.isAvailable == true ||
-                        restaurant.isAvailable != null
+                        restaurant.isAvailable != false
                     ? const Color.fromARGB(113, 255, 164, 79)
                     : KSecondary,
                 borderRadius: BorderRadius.circular(19.r),

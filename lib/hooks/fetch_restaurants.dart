@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/models/hook_models/apierror.dart';
+import 'package:multi_vendor/models/apierror.dart';
 import 'package:multi_vendor/models/hook_models/hook_result.dart';
-import 'package:multi_vendor/models/hook_models/restaurant_model.dart';
+import 'package:multi_vendor/models/restaurant_model.dart';
 
 FetcHook fetchRestaurants() {
   final restaurants = useState<List<RestaurantModel>?>([]);

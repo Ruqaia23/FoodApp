@@ -6,7 +6,7 @@ import 'package:multi_vendor/common/reusable_text.dart';
 import 'package:multi_vendor/common/shimmers/foodlist_shimmer.dart';
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/hooks/fetch_all_restaurants.dart';
-import 'package:multi_vendor/models/hook_models/restaurant_model.dart';
+import 'package:multi_vendor/models/restaurant_model.dart';
 import 'package:multi_vendor/view/Home/widgets/restauran_tile.dart';
 
 class AllNearbyRestaurants extends HookWidget {

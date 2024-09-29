@@ -19,7 +19,7 @@ class RestaurantModel {
   bool? delivery;
   List<Food>? foods; // Changed from List<Null> to List<Food>
   String? logoUrl;
-  int? rating;
+  num? rating;
   String? ratingCount;
   String? verification;
   String? verificationMessage;
@@ -98,8 +98,8 @@ class Coords {
   double? longitude;
   String? address;
   String? title;
-  int? latitudeDelta;
-  int? longitudeDelta;
+  num? latitudeDelta;
+  num? longitudeDelta;
 
   Coords(
       {this.id,
@@ -116,8 +116,8 @@ class Coords {
     longitude = json['longitude']?.toDouble(); // Ensure the value is a double
     address = json['address'];
     title = json['title'];
-    latitudeDelta = json['latitudeDelta']?.toDouble();
-    longitudeDelta = json['longitudeDelta']?.toDouble();
+    latitudeDelta = json['latitudeDelta'];
+    longitudeDelta = json['longitudeDelta'];
   }
 
   Map<String, dynamic> toJson() {
@@ -136,7 +136,7 @@ class Coords {
 // Define the Food class if necessary
 class Food {
   String? name;
-  double? price;
+  num? price;
 
   Food({this.name, this.price});
 

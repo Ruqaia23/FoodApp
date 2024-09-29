@@ -19,7 +19,7 @@ class FoodsModel {
   double? rating;
   String? ratingCount;
   String? description;
-  double? price;
+  num? price;
   List<Additives>? additives;
   List<String>? imageUrl;
   int? iV;
@@ -30,27 +30,27 @@ class FoodsModel {
   bool? verified;
 
   FoodsModel(
-      {this.sId,
-      this.title,
-      this.time,
-      this.foodTags,
-      this.category,
-      this.foodType,
-      this.code,
-      this.isAvailable,
-      this.restaurant,
-      this.rating,
-      this.ratingCount,
-      this.description,
-      this.price,
-      this.additives,
-      this.imageUrl,
-      this.iV,
-      this.promotion,
-      this.promotionPrice,
-      this.createdAt,
-      this.updatedAt,
-      this.verified});
+      {required this.sId,
+      required this.title,
+      required this.time,
+      required this.foodTags,
+      required this.category,
+      required this.foodType,
+      required this.code,
+      required this.isAvailable,
+      required this.restaurant,
+      required this.rating,
+      required this.ratingCount,
+      required this.description,
+      required this.price,
+      required this.additives,
+      required this.imageUrl,
+      required this.iV,
+      required this.promotion,
+      required this.promotionPrice,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.verified});
 
   FoodsModel.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];

@@ -2,8 +2,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_vendor/constants/constants.dart';
 
+import 'package:multi_vendor/models/apierror.dart';
 import 'package:multi_vendor/models/categories.dart';
-import 'package:multi_vendor/models/hook_models/apierror.dart';
+import 'package:multi_vendor/models/food_model.dart';
 import 'package:multi_vendor/models/hook_models/hook_result.dart';
 
 FetcHook useFetcAllCategories() {
@@ -18,7 +19,7 @@ FetcHook useFetcAllCategories() {
     try {
       Uri url = Uri.parse('${appBaseUrl}/api/category');
       final response = await http.get(url);
-      print("${response.statusCode} gooddd cattt2 ");
+      //print("${response.statusCode} gooddd cattt2 ");
 
       //
       //

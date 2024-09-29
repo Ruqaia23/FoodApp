@@ -2,15 +2,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/models/hook_models/apierror.dart';
-import 'package:multi_vendor/models/hook_models/food_model.dart';
-import 'package:multi_vendor/models/hook_models/hook_result.dart';
+import 'package:multi_vendor/models/apierror.dart';
+import 'package:multi_vendor/models/food_model.dart';
+import 'package:multi_vendor/models/hook_models/foods_hooks.dart';
 
-FetcHook useFetcFood() {
+FetcFoodds useFetcFood() {
   final foods = useState<List<FoodsModel>?>([]);
   final isLoading = useState<bool>(false);
-  final error = useState<dynamic>(
-      null); // Change to dynamic to handle different error types
+  final error = useState<dynamic>(null);
   final appiError = useState<ApiErrorModel?>(null);
 
   Future<void> fetcData() async {
@@ -46,8 +45,8 @@ FetcHook useFetcFood() {
     fetcData();
   }
 
-  return FetcHook(
-    data: foods.value,
+  return FetcFoodds(
+    data: foods.value!,
     isLoading: isLoading.value,
     error: error.value,
     refetch: refetch,

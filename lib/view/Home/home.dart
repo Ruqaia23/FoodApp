@@ -26,17 +26,17 @@ class HomePage extends StatelessWidget {
           children: [
             const CategoryList(),
             Heading(
-                text: 'Nearby Restaurants',
+                text: 'Try Something New',
                 onTap: () {
-                  Get.to(() => const AllNearbyRestaurants(),
+                  Get.to(() => const Recommended(),
                       transition: Transition.cupertino,
                       duration: const Duration(milliseconds: 900));
                 }),
             const NearbyRestaurants(),
             Heading(
-                text: 'Try Something New',
+                text: 'Nearby Restaurants',
                 onTap: () {
-                  Get.to(() => const Recommended(),
+                  Get.to(() => const AllNearbyRestaurants(),
                       transition: Transition.cupertino,
                       duration: const Duration(milliseconds: 900));
                 }),

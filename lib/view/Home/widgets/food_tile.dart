@@ -1,18 +1,17 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
 
 import 'package:multi_vendor/constants/constants.dart';
+import 'package:multi_vendor/models/food_model.dart';
 
 class FoodTile extends StatelessWidget {
-  const FoodTile({
+  FoodTile({
     super.key,
     required this.food,
   });
-  final dynamic food;
+  FoodsModel food;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,7 @@ class FoodTile extends StatelessWidget {
                         width: 70.w,
                         height: 70.h,
                         child: Image.network(
-                          food['imageUrl'],
+                          food.imageUrl![0],
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -59,22 +58,22 @@ class FoodTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ReusableText(
-                          text: food['title'],
+                          text: food.title!,
                           style: appStyle(11, Colors.black, FontWeight.w400)),
                       ReusableText(
-                          text: "Delivery time ${food['time']}",
+                          text: "Delivery time ${food.time}",
                           style: appStyle(11, kgray, FontWeight.w400)),
                       ReusableText(
-                          text: "\$ ${food['price'].toString()}",
+                          text: "\$ ${food.price.toString()}",
                           style: appStyle(9, KSecondary, FontWeight.bold)),
                       SizedBox(
                         width: width * 0.8,
                         height: 16.h,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: food['additives'].length,
+                          itemCount: food.additives!.length,
                           itemBuilder: (context, i) {
-                            var addittive = food['additives'][i];
+                            Additives addittive = food.additives![i];
                             return Container(
                               margin: EdgeInsets.only(right: 5.w),
                               decoration: BoxDecoration(
@@ -86,7 +85,7 @@ class FoodTile extends StatelessWidget {
                                 child: Padding(
                                   padding: EdgeInsets.all(2.h),
                                   child: ReusableText(
-                                      text: addittive['title'],
+                                      text: addittive.title!,
                                       style:
                                           appStyle(10, kgray, FontWeight.w400)),
                                 ),
