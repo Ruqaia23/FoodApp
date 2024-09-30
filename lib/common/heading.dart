@@ -11,9 +11,11 @@ class Heading extends StatelessWidget {
     super.key,
     required this.text,
     required this.onTap,
+    this.more,
   });
   final String text;
   final void Function()? onTap;
+  final bool? more;
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +29,16 @@ class Heading extends StatelessWidget {
             child: ReusableText(
                 text: text, style: appStyle(16, Colors.black, FontWeight.bold)),
           ),
-          GestureDetector(
-            onTap: onTap,
-            child: const Icon(
-              Icons.auto_awesome_motion_rounded,
-              color: kPrimary,
-              size: 20,
-            ),
-          )
+          more == null
+              ? GestureDetector(
+                  onTap: onTap,
+                  child: const Icon(
+                    Icons.auto_awesome_motion_rounded,
+                    color: kPrimary,
+                    size: 20,
+                  ),
+                )
+              : const SizedBox.shrink()
         ],
       ),
     );

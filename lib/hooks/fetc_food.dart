@@ -36,7 +36,9 @@ FetcFoodds useFetcFood() {
   }
 
   useEffect(() {
+    Future.delayed(const Duration(seconds: 3));
     fetcData();
+
     return null;
   }, []);
 

@@ -1,27 +1,29 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_vendor/constants/constants.dart';
-
+import 'package:multi_vendor/controllers/category_controller.dart';
 import 'package:multi_vendor/models/apierror.dart';
 import 'package:multi_vendor/models/food_model.dart';
-import 'package:multi_vendor/models/hook_models/hook_result.dart';
+import 'package:multi_vendor/models/hook_models/foods_hooks.dart';
 
-FetcHook useFetcAllFood(String code) {
+FetcFoodds useFetcFoodByCategory(String code) {
+  final controller = Get.put(CategoryController());
   final foods = useState<List<FoodsModel>?>([]);
   final isLoading = useState<bool>(false);
-  final error = useState<Exception?>(null);
+  final error = useState<dynamic>(null);
   final appiError = useState<ApiErrorModel?>(null);
 
   Future<void> fetcData() async {
     isLoading.value = true;
 
     try {
-      Uri url = Uri.parse('$appBaseUrl/api/foods/byCode/$code');
+      Uri url =
+          Uri.parse('$appBaseUrl/api/foods/${controller.categoryValue}/$code');
       final response = await http.get(url);
-      // print("${response.statusCode} gooddd rest ");
-
-      //
-      //
+      // print("${response.statusCode} gooddd food 1");
+      print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         foods.value = foodsModelFromJson(response.body);
@@ -29,14 +31,16 @@ FetcHook useFetcAllFood(String code) {
         appiError.value = apisModelFromJson(response.body);
       }
     } catch (e) {
-      //error.value = e as Exception;
+      debugPrint(e.toString());
     } finally {
       isLoading.value = false;
     }
   }
 
   useEffect(() {
+    Future.delayed(const Duration(seconds: 3));
     fetcData();
+
     return null;
   }, []);
 
@@ -45,9 +49,10 @@ FetcHook useFetcAllFood(String code) {
     fetcData();
   }
 
-  return FetcHook(
-      data: foods.value,
-      isLoading: isLoading.value,
-      error: error.value,
-      refetch: refetch);
+  return FetcFoodds(
+    data: foods.value!,
+    isLoading: isLoading.value,
+    error: error.value,
+    refetch: refetch,
+  );
 }

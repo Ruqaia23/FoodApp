@@ -7,105 +7,111 @@ String foodsModelToJson(List<FoodsModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class FoodsModel {
-  String? sId;
-  String? title;
-  String? time;
-  List<String>? foodTags;
-  String? category;
-  List<String>? foodType;
-  String? code;
-  bool? isAvailable;
-  String? restaurant;
-  double? rating;
-  String? ratingCount;
-  String? description;
-  num? price;
-  List<Additives>? additives;
-  List<String>? imageUrl;
-  int? iV;
-  bool? promotion;
-  int? promotionPrice;
-  String? createdAt;
-  String? updatedAt;
-  bool? verified;
+  final String? sId;
+  final String? title;
+  final String? time;
+  final List<String>? foodTags;
+  final String? category;
+  final List<String>? foodType;
+  final String? code;
+  final bool? isAvailable;
+  final String? restaurant;
+  final num? rating;
+  final int? ratingCount; // Changed to int for consistency
+  final String? description;
+  final num? price;
+  final List<Additives>? additives;
+  final List<String>? imageUrl;
+  final int? iV;
+  final bool? promotion;
+  final int? promotionPrice;
+  final String? createdAt;
+  final String? updatedAt;
+  final bool? verified;
 
-  FoodsModel(
-      {required this.sId,
-      required this.title,
-      required this.time,
-      required this.foodTags,
-      required this.category,
-      required this.foodType,
-      required this.code,
-      required this.isAvailable,
-      required this.restaurant,
-      required this.rating,
-      required this.ratingCount,
-      required this.description,
-      required this.price,
-      required this.additives,
-      required this.imageUrl,
-      required this.iV,
-      required this.promotion,
-      required this.promotionPrice,
-      required this.createdAt,
-      required this.updatedAt,
-      required this.verified});
+  FoodsModel({
+    required this.sId,
+    required this.title,
+    required this.time,
+    this.foodTags,
+    required this.category,
+    this.foodType,
+    required this.code,
+    required this.isAvailable,
+    required this.restaurant,
+    required this.rating,
+    required this.ratingCount,
+    required this.description,
+    required this.price,
+    this.additives,
+    required this.imageUrl,
+    required this.iV,
+    required this.promotion,
+    required this.promotionPrice,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.verified,
+  });
 
-  FoodsModel.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    title = json['title'];
-    time = json['time'];
-    foodTags = json['foodTags'].cast<String>();
-    category = json['category'];
-    foodType = json['foodType'].cast<String>();
-    code = json['code'];
-    isAvailable = json['isAvailable'];
-    restaurant = json['restaurant'];
-    rating = json['rating'];
-    ratingCount = json['ratingCount'];
-    description = json['description'];
-    price = json['price'];
-    if (json['additives'] != null) {
-      additives = <Additives>[];
-      json['additives'].forEach((v) {
-        additives!.add(new Additives.fromJson(v));
-      });
-    }
-    imageUrl = json['imageUrl'].cast<String>();
-    iV = json['__v'];
-    promotion = json['promotion'];
-    promotionPrice = json['promotionPrice'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    verified = json['verified'];
+  // Refactored fromJson method with proper null checks and casting
+  factory FoodsModel.fromJson(Map<String, dynamic> json) {
+    return FoodsModel(
+      sId: json['_id'] as String?,
+      title: json['title'] as String?,
+      time: json['time'] as String?,
+      foodTags:
+          (json['foodTags'] as List<dynamic>?)?.cast<String>(), // Safe casting
+      category: json['category'] as String?,
+      foodType:
+          (json['foodType'] as List<dynamic>?)?.cast<String>(), // Safe casting
+      code: json['code'] as String?,
+      isAvailable: json['isAvailable'] as bool?,
+      restaurant: json['restaurant'] as String?,
+      rating: json['rating'] as num?,
+      ratingCount: int.tryParse(
+          json['ratingCount'].toString()), // Ensuring proper type conversion
+      description: json['description'] as String?,
+      price: json['price'] as num?,
+      additives: (json['additives'] as List<dynamic>?)
+          ?.map((item) => Additives.fromJson(item as Map<String, dynamic>))
+          .toList(),
+      imageUrl:
+          (json['imageUrl'] as List<dynamic>?)?.cast<String>(), // Safe casting
+      iV: json['__v'] as int?,
+      promotion: json['promotion'] as bool?,
+      promotionPrice: json['promotionPrice'] as int?,
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      verified: json['verified'] as bool?,
+    );
   }
 
+  // toJson method with null safety checks
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['title'] = this.title;
-    data['time'] = this.time;
-    data['foodTags'] = this.foodTags;
-    data['category'] = this.category;
-    data['foodType'] = this.foodType;
-    data['code'] = this.code;
-    data['isAvailable'] = this.isAvailable;
-    data['restaurant'] = this.restaurant;
-    data['rating'] = this.rating;
-    data['ratingCount'] = this.ratingCount;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    if (this.additives != null) {
-      data['additives'] = this.additives!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['title'] = title;
+    data['time'] = time;
+    data['foodTags'] = foodTags;
+    data['category'] = category;
+    data['foodType'] = foodType;
+    data['code'] = code;
+    data['isAvailable'] = isAvailable;
+    data['restaurant'] = restaurant;
+    data['rating'] = rating;
+    data['ratingCount'] = ratingCount;
+    data['description'] = description;
+    data['price'] = price;
+    if (additives != null) {
+      data['additives'] = additives!.map((v) => v.toJson()).toList();
     }
-    data['imageUrl'] = this.imageUrl;
-    data['__v'] = this.iV;
-    data['promotion'] = this.promotion;
-    data['promotionPrice'] = this.promotionPrice;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['verified'] = this.verified;
+    data['imageUrl'] = imageUrl;
+    data['__v'] = iV;
+    data['promotion'] = promotion;
+    data['promotionPrice'] = promotionPrice;
+    data['createdAt'] = createdAt;
+    data['updatedAt'] = updatedAt;
+    data['verified'] = verified;
     return data;
   }
 }
@@ -117,17 +123,19 @@ class Additives {
 
   Additives({this.id, this.title, this.price});
 
-  Additives.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    title = json['title'];
-    price = json['price'];
+  factory Additives.fromJson(Map<String, dynamic> json) {
+    return Additives(
+      id: json['id'] as int?,
+      title: json['title'] as String?,
+      price: json['price'] as String?,
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['title'] = this.title;
-    data['price'] = this.price;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['title'] = title;
+    data['price'] = price;
     return data;
   }
 }

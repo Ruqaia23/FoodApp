@@ -4,7 +4,6 @@ import 'package:multi_vendor/constants/constants.dart';
 
 import 'package:multi_vendor/models/apierror.dart';
 import 'package:multi_vendor/models/categories.dart';
-import 'package:multi_vendor/models/food_model.dart';
 import 'package:multi_vendor/models/hook_models/hook_result.dart';
 
 FetcHook useFetcAllCategories() {
@@ -17,7 +16,7 @@ FetcHook useFetcAllCategories() {
     isLoading.value = true;
 
     try {
-      Uri url = Uri.parse('${appBaseUrl}/api/category');
+      Uri url = Uri.parse('$appBaseUrl/api/category');
       final response = await http.get(url);
       //print("${response.statusCode} gooddd cattt2 ");
 
