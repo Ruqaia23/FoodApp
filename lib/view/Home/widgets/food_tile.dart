@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
 
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/models/food_model.dart';
+import 'package:multi_vendor/view/food/food_page.dart';
 
 class FoodTile extends StatelessWidget {
   FoodTile({
@@ -16,7 +18,9 @@ class FoodTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => FoodPage(food: food));
+      },
       child: Column(
         // clipBehavior: Clip.hardEdge,
         children: [
