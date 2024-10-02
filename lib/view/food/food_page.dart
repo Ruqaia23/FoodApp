@@ -1,14 +1,21 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/custom_button.dart';
+import 'package:multi_vendor/common/custom_text_field.dart';
+import 'package:multi_vendor/common/reusable_text.dart';
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/controllers/food_controller.dart';
+import 'package:multi_vendor/hooks/fetch_restarantt.dart';
 import 'package:multi_vendor/models/food_model.dart';
+import 'package:multi_vendor/view/phone/verificaton_sheet.dart';
 import 'package:multi_vendor/view/restaurant/restaurant_page.dart';
 
-class FoodPage extends StatefulWidget {
+class FoodPage extends StatefulHookWidget {
   const FoodPage({super.key, required this.food});
   final FoodsModel food;
 
@@ -17,9 +24,12 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
+  final TextEditingController _preferences = TextEditingController();
   final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
+    final hookResult = fetchRestaurantt(widget.food.restaurant!);
+
     final controller = Get.put(FoodController());
     return Scaffold(
       body: ListView(
@@ -50,11 +60,11 @@ class _FoodPageState extends State<FoodPage> {
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
                               imageUrl: widget.food.imageUrl![i],
-                              placeholder: (context, url) => Center(
+                              placeholder: (context, url) => const Center(
                                 child: CircularProgressIndicator(),
                               ),
                               errorWidget: (context, url, error) =>
-                                  Icon(Icons.error),
+                                  const Icon(Icons.error),
                             ),
                           );
                         },
@@ -119,13 +129,235 @@ class _FoodPageState extends State<FoodPage> {
                       right: 12.w,
                       child: CustomButton(
                         onTap: () {
-                          Get.to(() => const RestaurantPage());
+                          Get.to(() => RestaurantPage(
+                                restaurent: hookResult.data!,
+                              ));
                         },
                         btnWidth: 120.w,
                         text: 'Open Restaurant',
                       ),
                     ),
                   ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ReusableText(
+                            text: widget.food.title!,
+                            style: appStyle(15, Colors.black, FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Text(
+                        widget.food.description!,
+                        textAlign: TextAlign.justify,
+                        maxLines: 8,
+                        style: appStyle(13, kgray, FontWeight.w400),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      SizedBox(
+                        height: 18.h,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: List.generate(widget.food.foodTags!.length,
+                              (index) {
+                            final tag = widget.food.foodTags![index];
+                            return Container(
+                              margin: EdgeInsets.only(
+                                right: 5.w,
+                              ),
+                              decoration: BoxDecoration(
+                                color: kPrimary,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15.r)),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                                child: ReusableText(
+                                  text: tag,
+                                  style: appStyle(
+                                      11, Colors.white, FontWeight.w400),
+                                ),
+                              ),
+                            );
+                          }),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+
+                      //جزئيه تعديل والاضافه للطلب
+                      ReusableText(
+                        text: 'Additives and Toppings',
+                        style: appStyle(15, Colors.black, FontWeight.w600),
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      Column(
+                        children: List.generate(widget.food.additives!.length,
+                            (index) {
+                          final additive = widget.food.additives![index];
+
+                          return CheckboxListTile(
+                              contentPadding: EdgeInsets.zero,
+                              visualDensity: VisualDensity.compact,
+                              dense: true,
+                              activeColor:
+                                  const Color.fromARGB(147, 48, 185, 178),
+                              value: true,
+                              tristate: false,
+                              title: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ReusableText(
+                                    text: additive.title!,
+                                    style: appStyle(
+                                        11, Colors.black, FontWeight.w400),
+                                  ),
+                                  ReusableText(
+                                    text:
+                                        "  \$ ${widget.food.price.toString()}",
+                                    style:
+                                        appStyle(11, kPrimary, FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                              onChanged: (bool? value) {});
+                        }),
+                      ),
+
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                      ReusableText(
+                        text: "Preferences",
+                        style: appStyle(15, Colors.black, FontWeight.w600),
+                      ),
+
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 65.h,
+                        child: CustomTextField(
+                          controller: _preferences,
+                          hintText: 'Add a note ',
+                          maxLines: 3,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.h,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 6.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: 48.h,
+                              width: 250,
+                              decoration: BoxDecoration(
+                                  color: kPrimary,
+                                  borderRadius: BorderRadius.circular(9.r)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0, right: 8.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    showVerificationSheet(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      ReusableText(
+                                          text: 'Add To Cart ',
+                                          style: appStyle(15, Colors.black,
+                                              FontWeight.w600)),
+                                      Obx(
+                                        () => ReusableText(
+                                          text:
+                                              "  \$ ${widget.food.price! * controller.count.value}",
+                                          style: appStyle(
+                                              15, kwhite, FontWeight.w600),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 48.h,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: kPrimary,
+                                  borderRadius: BorderRadius.circular(20.r)),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox(
+                                    width: 2,
+                                  ),
+                                  Row(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.increment();
+                                        },
+                                        child: const Icon(Icons.add_rounded),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Obx(
+                                          () => ReusableText(
+                                              text: "${controller.count.value}",
+                                              style: appStyle(14, Colors.black,
+                                                  FontWeight.w600)),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.decrement();
+                                        },
+                                        child: const Icon(Icons.remove),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    width: 2,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20.h,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

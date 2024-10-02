@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:multi_vendor/common/shimmers/nearby_shimmer.dart';
 import 'package:multi_vendor/hooks/fetch_restaurants.dart';
 import 'package:multi_vendor/models/restaurant_model.dart';
 import 'package:multi_vendor/view/Home/widgets/restaurant_widget.dart';
+import 'package:multi_vendor/view/restaurant/restaurant_page.dart';
 
 class NearbyRestaurants extends HookWidget {
   const NearbyRestaurants({super.key});
@@ -27,6 +29,9 @@ class NearbyRestaurants extends HookWidget {
                 return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RestaurantWidget(
+                      onTap: () {
+                        Get.to(() => RestaurantPage(restaurent: restaurant));
+                      },
                       image: restaurant.imageUrl!,
                       logo: restaurant.logoUrl!,
                       title: restaurant.title!,

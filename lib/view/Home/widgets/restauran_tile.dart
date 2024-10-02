@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
 
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/models/restaurant_model.dart';
+import 'package:multi_vendor/view/restaurant/restaurant_page.dart';
 
 // ignore: must_be_immutable
 class RestaurantTile extends StatelessWidget {
@@ -17,7 +19,9 @@ class RestaurantTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.to(() => RestaurantPage(restaurent: restaurant));
+      },
       child: Stack(
         clipBehavior: Clip.hardEdge,
         children: [
