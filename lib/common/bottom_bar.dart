@@ -44,8 +44,9 @@ class BottomBar extends StatelessWidget {
                     ],
                   ),
                   child: Theme(
-                    data: Theme.of(context)
-                        .copyWith(canvasColor: Colors.transparent),
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Colors.transparent,
+                    ),
                     child: BottomNavigationBar(
                       showSelectedLabels: false,
                       showUnselectedLabels: false,

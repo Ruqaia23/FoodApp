@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/custom_button.dart';
@@ -31,6 +30,7 @@ class _FoodPageState extends State<FoodPage> {
     final hookResult = fetchRestaurantt(widget.food.restaurant!);
 
     final controller = Get.put(FoodController());
+    controller.loadAdditives(widget.food.additives!);
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.zero,
@@ -210,38 +210,42 @@ class _FoodPageState extends State<FoodPage> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Column(
-                        children: List.generate(widget.food.additives!.length,
-                            (index) {
-                          final additive = widget.food.additives![index];
+                      Obx(
+                        () => Column(
+                          children: List.generate(
+                              controller.additivesList.length, (index) {
+                            final additive = controller.additivesList[index];
 
-                          return CheckboxListTile(
-                              contentPadding: EdgeInsets.zero,
-                              visualDensity: VisualDensity.compact,
-                              dense: true,
-                              activeColor:
-                                  const Color.fromARGB(147, 48, 185, 178),
-                              value: true,
-                              tristate: false,
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  ReusableText(
-                                    text: additive.title!,
-                                    style: appStyle(
-                                        11, Colors.black, FontWeight.w400),
-                                  ),
-                                  ReusableText(
-                                    text:
-                                        "  \$ ${widget.food.price.toString()}",
-                                    style:
-                                        appStyle(11, kPrimary, FontWeight.w600),
-                                  ),
-                                ],
-                              ),
-                              onChanged: (bool? value) {});
-                        }),
+                            return CheckboxListTile(
+                                contentPadding: EdgeInsets.zero,
+                                visualDensity: VisualDensity.compact,
+                                dense: true,
+                                activeColor:
+                                    const Color.fromARGB(147, 48, 185, 178),
+                                value: additive.isChecked.value,
+                                tristate: false,
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    ReusableText(
+                                      text: additive.title!,
+                                      style: appStyle(
+                                          11, Colors.black, FontWeight.w400),
+                                    ),
+                                    ReusableText(
+                                      text: "  \$ ${additive.price.toString()}",
+                                      style: appStyle(
+                                          11, kPrimary, FontWeight.w600),
+                                    ),
+                                  ],
+                                ),
+                                onChanged: (bool? value) {
+                                  additive.toggleChecked();
+                                  controller.getTotalPrice();
+                                });
+                          }),
+                        ),
                       ),
 
                       SizedBox(
@@ -295,7 +299,7 @@ class _FoodPageState extends State<FoodPage> {
                                       Obx(
                                         () => ReusableText(
                                           text:
-                                              "  \$ ${widget.food.price! * controller.count.value}",
+                                              "  \$ ${(widget.food.price! + controller.additivePrice) * controller.count.value}",
                                           style: appStyle(
                                               15, kwhite, FontWeight.w600),
                                         ),
