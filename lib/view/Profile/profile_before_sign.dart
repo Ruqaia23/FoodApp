@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:multi_vendor/common/custom_container.dart';
 import 'package:multi_vendor/common/profile_appbar.dart';
-import 'package:multi_vendor/view/Profile/widget/login_page.dart';
+import 'package:multi_vendor/view/auth/widget/login_page.dart';
 import 'package:multi_vendor/view/Profile/widget/profile_tile.dart';
 
 class ProfilePageBeforeSign extends StatelessWidget {

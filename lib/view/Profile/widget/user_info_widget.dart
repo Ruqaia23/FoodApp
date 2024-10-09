@@ -3,9 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
 import 'package:multi_vendor/constants/constants.dart';
+import 'package:multi_vendor/models/login_response.dart';
 
 class UserInfoWidget extends StatelessWidget {
-  const UserInfoWidget({super.key});
+  const UserInfoWidget({super.key, this.user});
+
+  final LoginResponse? user;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,8 @@ class UserInfoWidget extends StatelessWidget {
               SizedBox(
                 height: 35.h,
                 width: 35.w,
-                child: const CircleAvatar(
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(''),
                   backgroundColor: kgrayLight,
                 ),
               ),
@@ -34,7 +38,7 @@ class UserInfoWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ReusableText(
-                      text: 'Username',
+                      text: 'username',
                       style: appStyle(13, Colors.black, FontWeight.w600)),
                   ReusableText(
                       text: 'r_al_2@hotmail.com',

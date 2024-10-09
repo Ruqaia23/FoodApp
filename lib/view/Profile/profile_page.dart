@@ -2,19 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:multi_vendor/common/custom_button.dart';
 import 'package:multi_vendor/common/custom_container.dart';
 import 'package:multi_vendor/common/profile_appbar.dart';
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/view/Profile/widget/login_page.dart';
+import 'package:multi_vendor/controllers/login_controller.dart';
+import 'package:multi_vendor/models/login_response.dart';
 import 'package:multi_vendor/view/Profile/widget/profile_tile.dart';
 import 'package:multi_vendor/view/Profile/widget/user_info_widget.dart';
+import 'package:multi_vendor/view/auth/widget/login_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    LoginResponse? user;
+    final controller = Get.put(LoginController());
+
+    final box = GetStorage();
+
+    String? token = box.read('token');
+    if (token != null) {
+      controller.getUserInfo();
+
+      //print(user!.email);
+    }
+
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: Size.fromHeight(40.h), child: const ProfileAppbar()),
@@ -24,7 +39,7 @@ class ProfilePage extends StatelessWidget {
             child: CustomContainer(
                 content: Column(
               children: [
-                const UserInfoWidget(),
+                UserInfoWidget(user: user),
                 const SizedBox(
                   height: 10,
                 ),
@@ -37,7 +52,7 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       ProfileTile(
                         onTap: () {
-                          Get.to(() => LoginPage());
+                          Get.to(() => const LoginPage());
                         },
                         title: 'My Orders',
                         icon: Icons.fastfood_outlined,
@@ -98,7 +113,9 @@ class ProfilePage extends StatelessWidget {
                   height: 46,
                   width: 368,
                   child: CustomButton(
-                    onTap: () {},
+                    onTap: () {
+                      controller.logout();
+                    },
                     btncolor: KSecondary,
                     text: "LogOut",
                   ),

@@ -3,20 +3,31 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/constants/constants.dart';
 
-class PasswordTextfiled extends StatelessWidget {
-  const PasswordTextfiled({
-    super.key,
-    this.controller,
-  });
+class UserText extends StatelessWidget {
+  const UserText(
+      {super.key,
+      this.onEditingComplete,
+      this.keyboardType,
+      this.initialValue,
+      this.controller,
+      this.hintText,
+      this.prefixIcon});
 
+  final void Function()? onEditingComplete;
+  final TextInputType? keyboardType;
+  final String? initialValue;
   final TextEditingController? controller;
+  final String? hintText;
+  final Widget? prefixIcon;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: Colors.black,
       textInputAction: TextInputAction.next,
-      keyboardType: TextInputType.visiblePassword,
+      onEditingComplete: onEditingComplete,
+      keyboardType: keyboardType ?? TextInputType.emailAddress,
+      initialValue: initialValue,
       controller: controller,
       validator: (value) {
         if (value!.isEmpty) {
@@ -25,13 +36,10 @@ class PasswordTextfiled extends StatelessWidget {
           return null;
         }
       },
-      style: appStyle(12, kgray, FontWeight.normal),
+      style: appStyle(12, Colors.black, FontWeight.normal),
       decoration: InputDecoration(
-        hintText: 'password',
-        prefixIcon: const Icon(
-          Icons.lock_outline,
-          color: kPrimary,
-        ),
+        hintText: hintText,
+        prefixIcon: prefixIcon,
         isDense: true,
         contentPadding: EdgeInsets.all(6.h),
         hintStyle: appStyle(12, kgray, FontWeight.normal),

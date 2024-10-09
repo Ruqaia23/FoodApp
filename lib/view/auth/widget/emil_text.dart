@@ -36,7 +36,7 @@ class EmilTextField extends StatelessWidget {
           return null;
         }
       },
-      style: appStyle(12, kgray, FontWeight.normal),
+      style: appStyle(12, Colors.black, FontWeight.normal),
       decoration: InputDecoration(
         hintText: hintText,
         prefixIcon: prefixIcon,

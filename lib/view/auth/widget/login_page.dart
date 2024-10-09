@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:lottie/lottie.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/custom_button.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/view/Profile/widget/emil_text.dart';
-import 'package:multi_vendor/view/Profile/widget/password_textFiled.dart';
-import 'package:multi_vendor/view/Profile/widget/signup_page.dart';
+import 'package:multi_vendor/controllers/login_controller.dart';
+import 'package:multi_vendor/models/login_model.dart';
+import 'package:multi_vendor/view/auth/widget/emil_text.dart';
+import 'package:multi_vendor/view/auth/widget/password_textFiled.dart';
+import 'package:multi_vendor/view/auth/widget/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginController());
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 30.h,
               ),
-              Lottie.asset('assets/anime/delivery.json'),
+              Image.asset('assets/anime/foodapp.gif'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -79,13 +80,24 @@ class _LoginPageState extends State<LoginPage> {
                       height: 46,
                       width: 368,
                       child: CustomButton(
-                        onTap: () {},
-                        btncolor: KSecondary,
                         text: "Login",
+                        onTap: () {
+                          if (_emailController.text.isNotEmpty &&
+                              _passwordController.text.length >= 8) {
+                            LoginModel model = LoginModel(
+                                email: _emailController.text,
+                                password: _passwordController.text);
+
+                            String data = loginModelToJson(model);
+                            //login fun
+                            controller.loginFunction(data);
+                          }
+                        },
+                        btncolor: KSecondary,
                       ),
                     ),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
                             onTap: () {

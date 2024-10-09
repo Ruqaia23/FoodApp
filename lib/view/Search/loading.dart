@@ -1,7 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:lottie/lottie.dart';
 
 class LoadingWidget extends StatelessWidget {
   const LoadingWidget({super.key});
@@ -13,7 +12,7 @@ class LoadingWidget extends StatelessWidget {
       height: height,
       child: Padding(
         padding: EdgeInsets.only(bottom: 180.h),
-        child: LottieBuilder.asset('assets/anime/delivery.json',
+        child: Image.asset('assets/anime/foodapp.gif',
             width: width, height: height / 2),
       ),
     );
