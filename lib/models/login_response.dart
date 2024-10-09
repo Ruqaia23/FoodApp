@@ -14,12 +14,12 @@ class LoginResponse {
   String? username;
   String? email;
   String? fcm;
-  num? verification;
+  bool? verification;
   String? phone;
   bool? phoneVerification;
   String? userType;
   String? profile;
-  num? totalPoints;
+  int? totalPoints;
   String? userToken;
 
   LoginResponse({

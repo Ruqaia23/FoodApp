@@ -111,7 +111,6 @@ class _SignupPageState extends State<SignupPage> {
 
                             String data = signupModelToJson(model);
                             //signnup fun
-
                             controller.SignupFunction(data);
                           }
                         },

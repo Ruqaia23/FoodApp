@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/main.dart';
 import 'package:multi_vendor/models/apierror.dart';
 import 'package:http/http.dart' as http;
+import 'package:multi_vendor/view/auth/widget/login_page.dart';
 
 class SignupController extends GetxController {
   final box = GetStorage();
@@ -21,10 +21,12 @@ class SignupController extends GetxController {
     setloading = true;
 
     Uri url = Uri.parse('$appBaseUrl/register');
-    Map<String, String> headers = {' Content-Type': 'application/json'};
+    Map<String, String> headers = {'Content-Type': 'application/json'};
 
     try {
       var response = await http.post(url, headers: headers, body: data);
+      print(response.statusCode);
+
       if (response.statusCode == 201) {
         var data = apisModelFromJson(response.body);
         setloading = false;
@@ -37,7 +39,7 @@ class SignupController extends GetxController {
               color: Colors.red,
             ));
 
-        Get.offAll(() => const MyApp());
+        Get.offAll(() => const LoginPage());
       } else {
         var error = apisModelFromJson(response.body);
         Get.snackbar('Failed to Signup  ', error.message!,
