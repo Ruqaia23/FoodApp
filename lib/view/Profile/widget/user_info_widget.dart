@@ -16,43 +16,45 @@ class UserInfoWidget extends StatelessWidget {
       height: height * 0.06,
       width: width,
       color: Colors.white,
-      child: Column(children: [
-        Padding(
-          padding: EdgeInsets.fromLTRB(12.w, 5, 16, 5),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 35.h,
-                width: 35.w,
-                child: CircleAvatar(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                CircleAvatar(
+                  radius: 18.r,
                   backgroundImage: NetworkImage(user?.profile ?? ''),
                   backgroundColor: kgrayLight,
                 ),
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ReusableText(
-                      text: user?.username ?? 'user ',
-                      style: appStyle(13, Colors.black, FontWeight.w600)),
-                  ReusableText(
-                      text: user?.email ?? 'r_al_2@hotmail.',
-                      style: appStyle(11, kgray, FontWeight.w400))
-                ],
-              ),
-              const Icon(
-                Icons.edit_note_outlined,
-                size: 25,
-              ),
-            ],
-          ),
-        )
-      ]),
+                SizedBox(width: 12.w),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ReusableText(
+                      text: user?.username ?? 'User',
+                      style: appStyle(13, Colors.black, FontWeight.w600),
+                    ),
+                    ReusableText(
+                      text: user?.email ?? 'unknown@example.com',
+                      style: appStyle(11, kgray, FontWeight.w400),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Icon(
+              Icons.edit_note_outlined,
+              size: 25,
+              color: kgray,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

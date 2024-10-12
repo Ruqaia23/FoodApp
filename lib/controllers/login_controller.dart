@@ -5,10 +5,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:multi_vendor/common/bottom_bar.dart';
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:multi_vendor/main.dart';
 import 'package:multi_vendor/models/apierror.dart';
 import 'package:multi_vendor/models/login_response.dart';
-import 'package:multi_vendor/view/auth/widget/verification.dart';
 
 class LoginController extends GetxController {
   final box = GetStorage();

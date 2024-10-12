@@ -8,7 +8,6 @@ import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/models/login_response.dart';
 import 'package:http/http.dart' as http;
 import 'package:multi_vendor/models/success_model.dart';
-import 'package:multi_vendor/view/auth/widget/verification.dart';
 
 class VarificationController extends GetxController {
   final box = GetStorage();

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:multi_vendor/common/bottom_bar.dart';
 import 'package:multi_vendor/common/custom_button.dart';
 import 'package:multi_vendor/common/custom_container.dart';
 import 'package:multi_vendor/common/profile_appbar.dart';
@@ -11,10 +10,10 @@ import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/controllers/login_controller.dart';
 import 'package:multi_vendor/models/login_response.dart';
 import 'package:multi_vendor/view/Profile/profile_before_sign.dart';
+import 'package:multi_vendor/view/Profile/shipping.dart';
 import 'package:multi_vendor/view/Profile/widget/profile_tile.dart';
 import 'package:multi_vendor/view/Profile/widget/user_info_widget.dart';
 import 'package:multi_vendor/view/auth/widget/login_page.dart';
-import 'package:multi_vendor/view/auth/widget/verification.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -96,7 +95,11 @@ class ProfilePage extends StatelessWidget {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       ProfileTile(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(
+                            () => ShippingAddress(),
+                          );
+                        },
                         title: 'Address',
                         icon: Icons.location_on_outlined,
                       ),
