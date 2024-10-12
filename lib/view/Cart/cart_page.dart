@@ -5,7 +5,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:multi_vendor/controllers/login_controller.dart';
 import 'package:multi_vendor/models/login_response.dart';
 import 'package:multi_vendor/view/Profile/widget/login_redirect.dart';
-import 'package:multi_vendor/view/auth/widget/verification.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -27,9 +26,9 @@ class CartPage extends StatelessWidget {
     if (token == null) {
       return const LoginRedirect();
     }
-    if (user != null && user.verification == false) {
-      return const VerificationPage();
-    }
+    // if (user != null && user.verification == false) {
+    //   return BottomBar();
+    // }
 
     return Scaffold(
       appBar: PreferredSize(
@@ -37,10 +36,7 @@ class CartPage extends StatelessWidget {
           child: Container(
             height: 130.h,
           )),
-      body: SafeArea(child: Container()
-          //   CustomContainer(
-          // content: Container(),
-          ),
+      body: SafeArea(child: Container()),
     );
   }
 }

@@ -68,7 +68,7 @@ class VarificationController extends GetxController {
           );
         }
 
-        Get.offAll(() => const VerificationPage());
+        // Get.offAll(() => const VerificationPage());
       } else {
         var error = apisModelFromJson(response.body);
         Get.snackbar('Failed to verify  ', error.message!,

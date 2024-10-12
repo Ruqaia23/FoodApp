@@ -23,6 +23,7 @@ class _SignupPageState extends State<SignupPage> {
   late final TextEditingController _passwordController =
       TextEditingController();
   late final TextEditingController _userController = TextEditingController();
+
   final FocusNode _passwordFocusNode = FocusNode();
 
   @override

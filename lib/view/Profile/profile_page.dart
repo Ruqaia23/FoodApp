@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:multi_vendor/common/bottom_bar.dart';
 import 'package:multi_vendor/common/custom_button.dart';
 import 'package:multi_vendor/common/custom_container.dart';
 import 'package:multi_vendor/common/profile_appbar.dart';
@@ -36,9 +37,9 @@ class ProfilePage extends StatelessWidget {
       return const ProfilePageBeforeSign();
     }
 
-    if (user != null && user.verification == false) {
-      return const VerificationPage();
-    }
+    // if (user != null && user.verification == false) {
+    //   return BottomBar();
+    // }
 
     return Scaffold(
         appBar: PreferredSize(

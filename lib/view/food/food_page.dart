@@ -286,7 +286,9 @@ class _FoodPageState extends State<FoodPage> {
                                     left: 8.0, right: 8.0),
                                 child: GestureDetector(
                                   onTap: () {
-                                    showVerificationSheet(context);
+                                    print('place order');
+
+                                    //  showVerificationSheet(context);
                                   },
                                   child: Row(
                                     mainAxisAlignment:

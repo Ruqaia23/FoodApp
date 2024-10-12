@@ -94,8 +94,8 @@ class RestaurantModel {
 
 class Coords {
   String? id;
-  double? latitude;
-  double? longitude;
+  num? latitude;
+  num? longitude;
   String? address;
   String? title;
   num? latitudeDelta;
@@ -112,8 +112,10 @@ class Coords {
 
   Coords.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    latitude = json['latitude']?.toDouble(); // Ensure the value is a double
-    longitude = json['longitude']?.toDouble(); // Ensure the value is a double
+    latitude = json['latitude'];
+    //?.toDouble(); // Ensure the value is a double
+    longitude = json['longitude'];
+    //?.toDouble(); // Ensure the value is a double
     address = json['address'];
     title = json['title'];
     latitudeDelta = json['latitudeDelta'];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-String googleApiKey = '';
+String googleApiKey = 'AIzaSyDDGXGc3qcvmj1VggyubV-A2eYi5dL7Bmg';
 
 const kPrimary = Color(0xFF30b9b2);
 const kPrimaryLight = Color(0xFF40F3EA);
