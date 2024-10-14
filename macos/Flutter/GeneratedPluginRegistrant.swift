@@ -9,7 +9,7 @@ import geolocator_apple
 import path_provider_foundation
 import rive_common
 import shared_preferences_foundation
-import sqflite
+import sqflite_darwin
 import webview_flutter_wkwebview
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {

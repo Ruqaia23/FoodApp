@@ -31,6 +31,18 @@
     <key>Recommend food to user by location</key>
     <string>The example App requires temporary access to the device&apos;s precise location.</string>
     </dict>
+	<key>NSCameraUsageDescription</key>
+	<string>يستخدم التطبيق الكاميرا لالتقاط صورة جديدة لتحديث صورة الحساب الخاصة بك، وأيضًا لتصوير الصور للاستخدام في طلبك.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>يحتاج التطبيق إلى الوصول إلى موقعك الجغرافي لعرض المتاجر المجاورة وتوفير معلومات حول الموقع والاتجاهات لكل متجر.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>يحتاج التطبيق إلى الوصول إلى موقعك الجغرافي لتمكينك من تحديد موقعك واستخدام هذه المعلومات في تجربتك مع التطبيق.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>يحتاج التطبيق إلى الوصول إلى موقعك الجغرافي لعرض المتاجر المجاورة وتوفير معلومات حول الموقع والاتجاهات لكل متجر.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>يحتاج التطبيق إلى الوصول إلى مكتبة الصور الخاصة بك لتحميل صورة من مكتبة الصور لتحديث صورة الحساب واستخدامها في الطلب.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

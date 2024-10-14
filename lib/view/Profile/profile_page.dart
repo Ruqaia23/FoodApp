@@ -9,8 +9,8 @@ import 'package:multi_vendor/common/profile_appbar.dart';
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/controllers/login_controller.dart';
 import 'package:multi_vendor/models/login_response.dart';
+import 'package:multi_vendor/view/Profile/addresses_page.dart';
 import 'package:multi_vendor/view/Profile/profile_before_sign.dart';
-import 'package:multi_vendor/view/Profile/shipping.dart';
 import 'package:multi_vendor/view/Profile/widget/profile_tile.dart';
 import 'package:multi_vendor/view/Profile/widget/user_info_widget.dart';
 import 'package:multi_vendor/view/auth/widget/login_page.dart';
@@ -97,7 +97,7 @@ class ProfilePage extends StatelessWidget {
                       ProfileTile(
                         onTap: () {
                           Get.to(
-                            () => ShippingAddress(),
+                            () => Addresses(),
                           );
                         },
                         title: 'Address',

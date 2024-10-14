@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:multi_vendor/view/Profile/widget/appbar.dart';
+import 'package:multi_vendor/common/appbar.dart';
 import 'package:multi_vendor/common/heading.dart';
 import 'package:multi_vendor/controllers/category_controller.dart';
 import 'package:multi_vendor/view/Home/all_nearby_restaurants.dart';
