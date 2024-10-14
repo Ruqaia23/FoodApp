@@ -14,7 +14,7 @@ FetcAddress useFetcAllAddresses() {
   final apiError = useState<ApiErrorModel?>(null);
 
   Future<void> fetchData() async {
-    final accessToken = box.read('userToken');
+    final accessToken = box.read('token');
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
@@ -31,10 +31,10 @@ FetcAddress useFetcAllAddresses() {
 
       if (response.statusCode == 200) {
         addresses.value = addressResponseFromJson(response.body);
-        apiError.value = null; // Clear previous errors if any
+        apiError.value = null;
       } else {
         apiError.value = apisModelFromJson(response.body);
-        addresses.value = null; // Clear data if API error occurs
+        addresses.value = null;
       }
     } catch (e) {
       error.value = e as Exception;

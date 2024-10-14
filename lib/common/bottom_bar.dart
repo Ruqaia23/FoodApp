@@ -11,10 +11,10 @@ import 'package:multi_vendor/view/Search/search_page.dart';
 class BottomBar extends StatelessWidget {
   BottomBar({super.key});
 
-  List<Widget> pageList = const [
-    HomePage(),
-    SearchPage(),
-    CartPage(),
+  List<Widget> pageList = [
+    const HomePage(),
+    const SearchPage(),
+    const CartPage(),
     ProfilePage(),
   ];
 

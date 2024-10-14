@@ -1,19 +1,13 @@
 import 'dart:convert';
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_vendor/common/app_style.dart';
-import 'package:multi_vendor/common/custom_button.dart';
-import 'package:multi_vendor/common/reusable_text.dart';
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/controllers/user_location_controller.dart';
 import 'package:http/http.dart' as http;
-import 'package:multi_vendor/models/address_model.dart';
-import 'package:multi_vendor/view/auth/widget/emil_text.dart';
+import 'package:multi_vendor/view/Profile/widget/addressinfo.dart';
 
 class ShippingAddress extends StatefulWidget {
   const ShippingAddress({super.key});
@@ -26,8 +20,10 @@ class _ShippingAddressState extends State<ShippingAddress> {
   late final PageController _pageController = PageController(initialPage: 0);
   GoogleMapController? _mapController;
   final TextEditingController _searchController = TextEditingController();
-  final TextEditingController _potataCode = TextEditingController();
-  final TextEditingController _instrucation = TextEditingController();
+  final TextEditingController _postalCodeController =
+      TextEditingController(); // تعديل الاسم هنا
+  final TextEditingController _instructionController =
+      TextEditingController(); // تعديل الاسم هنا
 
   LatLng? _selectedPosition;
   List<dynamic> _placeList = [];
@@ -50,7 +46,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
   void _onSearchChanged(String searchQuery) async {
     if (searchQuery.isNotEmpty) {
       final url = Uri.parse(
-          'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchQuery}&key=$googleApiKey');
+          'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$searchQuery&key=$googleApiKey');
 
       final response = await http.get(url);
 
@@ -66,7 +62,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
   void _getPlaceDetails(String placeId) async {
     final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/place/details/json?place=${placeId}&key=$googleApiKey');
+        'https://maps.googleapis.com/maps/api/place/details/json?placeid=$placeId&key=$googleApiKey');
 
     final response = await http.get(url);
     if (response.statusCode == 200) {
@@ -78,11 +74,11 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
       String postalCode = '';
 
-      final addressComponets = location['result']['address_components'];
+      final addressComponents = location['result']['address_components'];
 
-      for (var componet in addressComponets) {
-        if (componet['types'].contains('postal_code')) {
-          postalCode = componet['long_name'];
+      for (var component in addressComponents) {
+        if (component['types'].contains('postal_code')) {
+          postalCode = component['long_name'];
           break;
         }
       }
@@ -90,7 +86,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
       setState(() {
         _selectedPosition = LatLng(lat, lng);
         _searchController.text = address;
-        _potataCode.text = postalCode;
+        _postalCodeController.text = postalCode;
         moveToSelectedPosition();
         _placeList = [];
       });
@@ -211,7 +207,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                     },
                     initialCameraPosition: CameraPosition(
                       target: _selectedPosition ??
-                          const LatLng(24.705247049914657, 46.70359684193035),
+                          LatLng(24.705247049914657, 46.70359684193035),
                       zoom: 15,
                     ),
                     markers: _selectedPosition == null
@@ -219,12 +215,13 @@ class _ShippingAddressState extends State<ShippingAddress> {
                         ? Set.of([
                             Marker(
                                 markerId: const MarkerId("Your Location"),
-                                position: const LatLng(
+                                position: LatLng(
                                     24.705247049914657, 46.70359684193035),
                                 draggable: true,
                                 onDragEnd: (LatLng position) {
                                   locationController.getUserAddress(
                                       locationController.position);
+
                                   setState(() {
                                     _selectedPosition = position;
                                   });
@@ -248,78 +245,11 @@ class _ShippingAddressState extends State<ShippingAddress> {
                 ),
               ],
             ),
-            ListView(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20.w,
-              ),
-              children: [
-                SizedBox(
-                  height: 30.h,
-                ),
-                EmilTextField(
-                  controller: _searchController,
-                  hintText: "Address",
-                  prefixIcon: const Icon(Icons.location_on),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                EmilTextField(
-                  controller: _potataCode,
-                  hintText: "Postal Code",
-                  prefixIcon: const Icon(Icons.location_on),
-                  keyboardType: TextInputType.number,
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                EmilTextField(
-                  controller: _instrucation,
-                  hintText: "Delivery Instructions",
-                  prefixIcon: const Icon(Icons.add_circle),
-                  keyboardType: TextInputType.number,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5, left: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ReusableText(
-                          text: 'Set address as default',
-                          style: appStyle(12, Colors.black, FontWeight.w600)),
-                      Obx(() => CupertinoSwitch(
-                            thumbColor: KSecondary,
-                            trackColor: kgray,
-                            value: locationController.isDefault,
-                            onChanged: (Value) {
-                              locationController.setIsDefault = Value;
-                            },
-                          ))
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 15.h,
-                ),
-                CustomButton(
-                    onTap: () {
-                      if (_searchController.text.isNotEmpty &&
-                          _potataCode.text.isNotEmpty &&
-                          _instrucation.text.isNotEmpty) {
-                        AddressModel model = AddressModel(
-                            addressLine1: _searchController.text,
-                            postalCode: _potataCode.text,
-                            addressModelDefault: locationController.isDefault,
-                            deliveryInstructions: _instrucation.text);
-
-                        String data = addressModelToJson(model);
-                      }
-                    },
-                    btnHeight: 45,
-                    btncolor: kPrimary,
-                    text: 'S U M I T')
-              ],
+            AddressInfo(
+              searchController: _searchController,
+              postalCodeController: _postalCodeController,
+              instructionController: _instructionController,
+              locationController: locationController,
             ),
           ],
         ),

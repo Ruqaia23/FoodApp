@@ -22,7 +22,7 @@ class UserLocationController extends GetxController {
   LatLng position = LatLng.degree(0, 0);
 
   void setPosition(LatLng value) {
-    value = position;
+    position = value;
     update();
   }
 
@@ -46,7 +46,7 @@ class UserLocationController extends GetxController {
     //    'Latitude: ${position.latitude}, Longitude: ${position.longitude}'); // استخدام القيم مباشرة
 
     final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude},${position.longitude}&key=$googleApiKey');
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude.radians},${position.longitude.radians}&key=$googleApiKey');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
@@ -73,17 +73,35 @@ class UserLocationController extends GetxController {
 
   void addAddress(String data) async {
     final box = GetStorage();
-    String assessToken = box.read('userToken');
+    final accessToken = box.read('token');
 
     Uri url = Uri.parse('$appBaseUrl/api/address');
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $assessToken'
+      'Authorization': 'Bearer $accessToken'
     };
 
-    // try{
-    //   var response = await http.post(url)
-    // }
+    Map<String, dynamic> body = {
+      'address': data,
+      'latitude': position.latitude,
+      'longitude': position.longitude,
+      'postal_code': postalCode
+    };
+
+    try {
+      var response = await http.post(
+        url,
+        headers: headers,
+        body: jsonEncode(body),
+      );
+      if (response.statusCode == 200) {
+        print('Address added successfully');
+      } else {
+        print('Failed to add address: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 }

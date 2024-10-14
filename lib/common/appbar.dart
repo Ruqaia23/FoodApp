@@ -127,9 +127,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     LatLng currentLocation =
-        LatLng.degree(position.latitude, position.longitude);
+        LatLng(controller.position.latitude, controller.position.longitude);
     controller.setPosition(currentLocation);
-    //   print(currentLocation);
+    // print(currentLocation);
     controller.getUserAddress(currentLocation);
   }
 }
