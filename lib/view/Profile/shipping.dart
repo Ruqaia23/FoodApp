@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:multi_vendor/common/app_style.dart';
@@ -27,7 +28,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
 
   LatLng? _selectedPosition;
   List<dynamic> _placeList = [];
-  List<dynamic> _selectedPlace = [];
+  final List<dynamic> _selectedPlace = [];
 
   @override
   void initState() {
@@ -35,6 +36,16 @@ class _ShippingAddressState extends State<ShippingAddress> {
       setState(() {});
     });
     super.initState();
+  }
+
+  void _getPositionAddress() {
+    if (_selectedPosition != null) return;
+    Geolocator.getCurrentPosition().then((position) {
+      _selectedPosition = LatLng(position.latitude, position.longitude);
+      moveToSelectedPosition();
+
+      setState(() {});
+    });
   }
 
   @override
@@ -163,51 +174,58 @@ class _ShippingAddressState extends State<ShippingAddress> {
           children: [
             Column(
               children: [
-                Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w),
-                      color: kOffwhite,
-                      child: TextField(
-                        controller: _searchController,
-                        onChanged: _onSearchChanged,
-                        decoration: const InputDecoration(
-                          hintText: 'Search ',
+                Container(
+                  constraints: const BoxConstraints(
+                    maxHeight: 300,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        color: kOffwhite,
+                        child: TextField(
+                          controller: _searchController,
+                          onChanged: _onSearchChanged,
+                          decoration: const InputDecoration(
+                            hintText: 'Search ',
+                          ),
                         ),
                       ),
-                    ),
-                    _placeList.isEmpty
-                        ? const SizedBox.shrink()
-                        : Expanded(
-                            child: ListView(
-                            children: List.generate(_placeList.length, (index) {
-                              return Container(
-                                color: kOffwhite,
-                                child: ListTile(
-                                  visualDensity: VisualDensity.compact,
-                                  title: Text(
-                                    _placeList[index]['description'],
-                                    style: appStyle(14, kgray, FontWeight.w400),
-                                  ),
-                                  onTap: () {
-                                    _getPlaceDetails(
-                                        _placeList[index]['place_id']);
-                                    _selectedPlace.add(_placeList[index]);
-                                  },
-                                ),
-                              );
-                            }),
-                          )),
-                  ],
+                      _placeList.isEmpty
+                          ? const SizedBox.shrink()
+                          : Expanded(
+                              child: ListView(
+                                children:
+                                    List.generate(_placeList.length, (index) {
+                                  return ListTile(
+                                    //visualDensity: VisualDensity.compact,
+                                    title: Text(
+                                      _placeList[index]['description'],
+                                      style:
+                                          appStyle(14, kgray, FontWeight.w400),
+                                    ),
+                                    onTap: () {
+                                      _getPlaceDetails(
+                                          _placeList[index]['place_id']);
+                                      _selectedPlace.add(_placeList[index]);
+                                    },
+                                  );
+                                }),
+                              ),
+                            ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: GoogleMap(
                     onMapCreated: (GoogleMapController controller) {
                       _mapController = controller;
+                      _getPositionAddress();
                     },
                     initialCameraPosition: CameraPosition(
                       target: _selectedPosition ??
-                          LatLng(24.705247049914657, 46.70359684193035),
+                          const LatLng(24.705247049914657, 46.70359684193035),
                       zoom: 15,
                     ),
                     markers: _selectedPosition == null
@@ -215,8 +233,9 @@ class _ShippingAddressState extends State<ShippingAddress> {
                         ? Set.of([
                             Marker(
                                 markerId: const MarkerId("Your Location"),
-                                position: LatLng(
-                                    24.705247049914657, 46.70359684193035),
+                                position: _selectedPosition ??
+                                    const LatLng(
+                                        24.705247049914657, 46.70359684193035),
                                 draggable: true,
                                 onDragEnd: (LatLng position) {
                                   locationController.getUserAddress(

@@ -53,18 +53,16 @@ class CartPage extends HookWidget {
           child: isLoading
               ? const FoodsListShimmer()
               : Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: SizedBox(
                     width: width,
                     height: height,
                     child: ListView.builder(
-                        itemCount: carts.length,
-                        itemBuilder: (context, index) {
-                          var cart = carts[0];
-                          CartTile(
-                            cart: cart,
-                          );
-                        }),
+                      itemCount: carts.length,
+                      itemBuilder: (context, index) => CartTile(
+                        cart: carts[index],
+                      ),
+                    ),
                   ),
                 )),
     );

@@ -42,23 +42,20 @@ class UserLocationController extends GetxController {
 
   void getUserAddress(LatLng position) async {
     // طباعة الإحداثيات
-    //  print(
-    //    'Latitude: ${position.latitude}, Longitude: ${position.longitude}'); // استخدام القيم مباشرة
-    // print("position.latitude");
-    // print(position.latitude);
-    // print("position.latitude");
+    final latitude = position.latitude.degrees;
+    final longitude = position.longitude.degrees;
     final url = Uri.parse(
-        'https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude.radians},${position.longitude.radians}&key=$googleApiKey');
+        'https://maps.googleapis.com/maps/api/geocode/json?latlng=$latitude,$longitude&key=$googleApiKey');
     final response = await http.get(url);
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
-      if (responseBody['results'].isNotEmpty) {
+      if ((responseBody['results'] as List).isNotEmpty) {
+        final results = (responseBody['results'] as List).firstOrNull;
         // تأكد من وجود نتائج
-        final address = responseBody['results'][0]['formatted_address'];
+        final address = results['formatted_address'];
         setAddress = address;
 
-        final addressComponents =
-            responseBody['rsults'][0]['address_components'];
+        final addressComponents = results['address_components'];
         for (var component in addressComponents) {
           if (component['types'].contains('postal_code')) {
             setPostalCode = component['long_name'];

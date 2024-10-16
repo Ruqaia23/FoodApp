@@ -37,6 +37,7 @@ FetcHook useFetcCart() {
         cart.value = null;
       }
     } catch (e) {
+      print(e);
       error.value = e is Exception ? e : null;
     } finally {
       isLoading.value = false;

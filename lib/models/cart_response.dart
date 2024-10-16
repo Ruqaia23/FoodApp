@@ -10,7 +10,7 @@ class CartResponse {
   final String id;
   final ProductId productId;
   final List<String> additives;
-  final double totalPrice;
+  final num totalPrice;
   final int quantity;
 
   CartResponse({
@@ -24,8 +24,8 @@ class CartResponse {
   // Factory method to create CartResponse from JSON
   factory CartResponse.fromJson(Map<String, dynamic> json) {
     return CartResponse(
-      id: json['id'],
-      productId: json['productId'],
+      id: json['_id'] ?? "0",
+      productId: ProductId.fromJson(json['productId']),
       additives: List<String>.from(json['additives']),
       totalPrice: json['totalPrice'],
       quantity: json['quantity'],
@@ -48,7 +48,7 @@ class ProductId {
   final String id;
   final String title;
   final String restaurant;
-  final double rating;
+  final num rating;
   final String ratingCount;
   final List<String> imageUrl;
 
@@ -63,23 +63,12 @@ class ProductId {
 
   factory ProductId.fromJson(Map<String, dynamic> json) {
     return ProductId(
-      id: json['id'],
-      title: json['title'],
-      restaurant: json['restaurant'],
-      rating: json['rating'].toDouble(),
-      ratingCount: json['ratingCount'],
+      id: json['_id'],
+      title: json['title'] ?? "",
+      restaurant: "",
+      rating: json['rating']?.toDouble() ?? 0.0,
+      ratingCount: json['ratingCount'] ?? "0.0",
       imageUrl: List<String>.from(json['imageUrl']),
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'title': title,
-      'restaurant': restaurant,
-      'rating': rating,
-      'ratingCount': ratingCount,
-      'imageUrl': imageUrl,
-    };
   }
 }

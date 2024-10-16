@@ -24,7 +24,7 @@ class FoodList extends HookWidget {
           ? const NearbyShimmer()
           : ListView(
               scrollDirection: Axis.horizontal,
-              children: List.generate(foods!.length, (i) {
+              children: List.generate(foods.length, (i) {
                 FoodsModel food = foods[i];
                 return FoodWidget(
                   onTap: () {

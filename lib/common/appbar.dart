@@ -66,7 +66,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                           width: width * 0.65,
                           child: Text(
                             address.isEmpty
-                                ? 'السعودية، الرياض، شارع 1229834' // توفير عنوان افتراضي إذا كان فارغًا
+                                ? '....' // توفير عنوان افتراضي إذا كان فارغًا
                                 : address,
                             overflow: TextOverflow.ellipsis,
                             style: appStyle(11, kgrayLight, FontWeight.w400),
@@ -127,12 +127,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
 
   Future<void> _getCurentLocation() async {
     final controller = Get.put(UserLocationController());
-    Position position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+    Position position = await Geolocator.getCurrentPosition();
     LatLng currentLocation =
-        LatLng(controller.position.latitude, controller.position.longitude);
+        LatLng.degree(position.latitude, position.longitude);
     controller.setPosition(currentLocation);
-    print('address $currentLocation');
+    // print('address $currentLocation');
     controller.getUserAddress(currentLocation);
   }
 }

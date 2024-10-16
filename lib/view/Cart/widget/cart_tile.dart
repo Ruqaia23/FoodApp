@@ -47,7 +47,7 @@ class CartTile extends StatelessWidget {
                         width: 70.w,
                         height: 70.h,
                         child: Image.network(
-                          cart.productId.imageUrl[0],
+                          cart.productId.imageUrl.firstOrNull ?? '',
                           fit: BoxFit.cover,
                         ),
                       ),
