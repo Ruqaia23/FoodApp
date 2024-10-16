@@ -13,7 +13,7 @@ import 'package:multi_vendor/view/Profile/addresses_page.dart';
 import 'package:multi_vendor/view/Profile/profile_before_sign.dart';
 import 'package:multi_vendor/view/Profile/widget/profile_tile.dart';
 import 'package:multi_vendor/view/Profile/widget/user_info_widget.dart';
-import 'package:multi_vendor/view/auth/widget/login_page.dart';
+import 'package:multi_vendor/view/order/order_page.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -62,7 +62,7 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       ProfileTile(
                         onTap: () {
-                          Get.to(() => const LoginPage());
+                          //  Get.to(() => const OrderPage(food: widget  ,));
                         },
                         title: 'My Orders',
                         icon: Icons.fastfood_outlined,

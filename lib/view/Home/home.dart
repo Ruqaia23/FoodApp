@@ -8,7 +8,7 @@ import 'package:multi_vendor/view/Home/all_nearby_restaurants.dart';
 import 'package:multi_vendor/view/Home/fast_food.dart';
 import 'package:multi_vendor/view/Home/recommended.dart';
 import 'package:multi_vendor/view/Home/widgets/category_list.dart';
-import 'package:multi_vendor/view/Home/widgets/food_list.dart';
+import 'package:multi_vendor/view/food/widget/food_list.dart';
 import 'package:multi_vendor/view/Home/widgets/nearby_Reastlist.dart';
 
 import 'widgets/category_Food_List.dart';

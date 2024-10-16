@@ -14,7 +14,7 @@ class BottomBar extends StatelessWidget {
   List<Widget> pageList = [
     const HomePage(),
     const SearchPage(),
-    const CartPage(),
+    CartPage(),
     ProfilePage(),
   ];
 

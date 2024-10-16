@@ -3,24 +3,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:multi_vendor/common/app_style.dart';
 import 'package:multi_vendor/common/reusable_text.dart';
-
 import 'package:multi_vendor/constants/constants.dart';
-import 'package:multi_vendor/models/food_model.dart';
-import 'package:multi_vendor/view/food/food_page.dart';
+import 'package:multi_vendor/controllers/cart_controller.dart';
+import 'package:multi_vendor/models/cart_response.dart';
 
-class FoodTile extends StatelessWidget {
-  FoodTile({
+class CartTile extends StatelessWidget {
+  CartTile({
     super.key,
-    required this.food,
+    required this.cart,
+    this.refetch,
   });
-  FoodsModel food;
+  CartResponse cart;
+  final Function()? refetch;
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(CartController());
+
     return GestureDetector(
-      onTap: () {
-        Get.to(() => FoodPage(food: food));
-      },
+      onTap: () {},
       child: Column(
         // clipBehavior: Clip.hardEdge,
         children: [
@@ -46,7 +47,7 @@ class FoodTile extends StatelessWidget {
                         width: 70.w,
                         height: 70.h,
                         child: Image.network(
-                          food.imageUrl![0],
+                          cart.productId.imageUrl[0],
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -62,22 +63,19 @@ class FoodTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ReusableText(
-                          text: food.title!,
+                          text: cart.productId.title,
                           style: appStyle(11, Colors.black, FontWeight.w400)),
                       ReusableText(
-                          text: "Delivery time ${food.time}",
-                          style: appStyle(11, kgray, FontWeight.w400)),
-                      ReusableText(
-                          text: "\$ ${food.price.toString()}",
+                          text: "\$ ${cart.totalPrice.toString()}",
                           style: appStyle(9, KSecondary, FontWeight.bold)),
                       SizedBox(
                         width: width * 0.8,
                         height: 16.h,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: food.additives!.length,
+                          itemCount: cart.additives.length,
                           itemBuilder: (context, i) {
-                            Additives addittive = food.additives![i];
+                            var addittive = cart.additives[i];
                             return Container(
                               margin: EdgeInsets.only(right: 5.w),
                               decoration: BoxDecoration(
@@ -89,7 +87,7 @@ class FoodTile extends StatelessWidget {
                                 child: Padding(
                                   padding: EdgeInsets.all(2.h),
                                   child: ReusableText(
-                                      text: addittive.title!,
+                                      text: addittive,
                                       style:
                                           appStyle(10, kgray, FontWeight.w400)),
                                 ),
@@ -102,12 +100,22 @@ class FoodTile extends StatelessWidget {
                   ),
                 ),
                 Column(children: [
-                  Center(
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.add,
-                        size: 20.h,
+                  Container(
+                    width: 10.w,
+                    height: 19.h,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          controller.removeFromCart(cart.id, refetch!);
+                        },
+                        child: Icon(
+                          Icons.delete_outline,
+                          size: 20.h,
+                        ),
                       ),
                     ),
                   ),

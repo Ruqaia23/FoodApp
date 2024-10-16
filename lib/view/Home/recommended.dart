@@ -7,7 +7,7 @@ import 'package:multi_vendor/common/shimmers/foodlist_shimmer.dart';
 import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/hooks/fetc_all_food.dart';
 import 'package:multi_vendor/models/food_model.dart';
-import 'package:multi_vendor/view/Home/widgets/food_tile.dart';
+import 'package:multi_vendor/view/food/widget/food_tile.dart';
 
 class Recommended extends HookWidget {
   const Recommended({super.key});

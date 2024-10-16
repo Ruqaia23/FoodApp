@@ -34,12 +34,12 @@ class AddressResponse {
 
   factory AddressResponse.fromJson(Map<String, dynamic> json) =>
       AddressResponse(
-        id: json['_id'],
-        userId: json['userId'],
-        addressLine1: json["addressLine1"],
-        postalCode: json["postalCode"],
-        addressModelDefault: json["default"],
-        deliveryInstructions: json["deliveryInstructions"],
+        id: json['_id'] ?? '',
+        userId: json['userId'] ?? '',
+        addressLine1: json["addressLine1"] ?? '',
+        postalCode: json["postalCode"] ?? '',
+        addressModelDefault: json["default"] ?? '',
+        deliveryInstructions: json["deliveryInstructions"] ?? '',
         latitude: json['latitude']?.toDouble(),
         longitude: json['longitude']?.toDouble(),
         v: json['__v'],

@@ -44,7 +44,9 @@ class UserLocationController extends GetxController {
     // طباعة الإحداثيات
     //  print(
     //    'Latitude: ${position.latitude}, Longitude: ${position.longitude}'); // استخدام القيم مباشرة
-
+    // print("position.latitude");
+    // print(position.latitude);
+    // print("position.latitude");
     final url = Uri.parse(
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=${position.latitude.radians},${position.longitude.radians}&key=$googleApiKey');
     final response = await http.get(url);
@@ -56,7 +58,7 @@ class UserLocationController extends GetxController {
         setAddress = address;
 
         final addressComponents =
-            responseBody['results'][0]['address_components'];
+            responseBody['rsults'][0]['address_components'];
         for (var component in addressComponents) {
           if (component['types'].contains('postal_code')) {
             setPostalCode = component['long_name'];
@@ -84,9 +86,11 @@ class UserLocationController extends GetxController {
 
     Map<String, dynamic> body = {
       'address': data,
-      'latitude': position.latitude,
-      'longitude': position.longitude,
-      'postal_code': postalCode
+      'addressLine1': data,
+      'latitude': position.latitude.radians,
+      'longitude': position.longitude.radians,
+      'postalCode': postalCode.isEmpty ? '0000' : postalCode,
+      'postal_Code': postalCode.isEmpty ? '0000' : postalCode,
     };
 
     try {

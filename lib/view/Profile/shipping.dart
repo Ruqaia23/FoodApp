@@ -221,7 +221,7 @@ class _ShippingAddressState extends State<ShippingAddress> {
                                 onDragEnd: (LatLng position) {
                                   locationController.getUserAddress(
                                       locationController.position);
-
+                                  // print(position);
                                   setState(() {
                                     _selectedPosition = position;
                                   });

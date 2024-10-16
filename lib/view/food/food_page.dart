@@ -11,7 +11,8 @@ import 'package:multi_vendor/constants/constants.dart';
 import 'package:multi_vendor/controllers/food_controller.dart';
 import 'package:multi_vendor/hooks/fetch_restarantt.dart';
 import 'package:multi_vendor/models/food_model.dart';
-import 'package:multi_vendor/view/phone/verificaton_sheet.dart';
+import 'package:multi_vendor/view/food/widget/add_to_cart.dart';
+import 'package:multi_vendor/view/food/widget/food_tags.dart';
 import 'package:multi_vendor/view/restaurant/restaurant_page.dart';
 
 class FoodPage extends StatefulHookWidget {
@@ -170,34 +171,7 @@ class _FoodPageState extends State<FoodPage> {
                       SizedBox(
                         height: 10.h,
                       ),
-                      SizedBox(
-                        height: 18.h,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: List.generate(widget.food.foodTags!.length,
-                              (index) {
-                            final tag = widget.food.foodTags![index];
-                            return Container(
-                              margin: EdgeInsets.only(
-                                right: 5.w,
-                              ),
-                              decoration: BoxDecoration(
-                                color: kPrimary,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15.r)),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 5.w),
-                                child: ReusableText(
-                                  text: tag,
-                                  style: appStyle(
-                                      11, Colors.white, FontWeight.w400),
-                                ),
-                              ),
-                            );
-                          }),
-                        ),
-                      ),
+                      food_tags(widget: widget),
                       SizedBox(
                         height: 20.h,
                       ),
@@ -243,6 +217,7 @@ class _FoodPageState extends State<FoodPage> {
                                 onChanged: (bool? value) {
                                   additive.toggleChecked();
                                   controller.getTotalPrice();
+                                  controller.getCartAdditive();
                                 });
                           }),
                         ),
@@ -270,95 +245,8 @@ class _FoodPageState extends State<FoodPage> {
                       SizedBox(
                         height: 15.h,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 6.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 48.h,
-                              width: 250,
-                              decoration: BoxDecoration(
-                                  color: kPrimary,
-                                  borderRadius: BorderRadius.circular(9.r)),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 8.0, right: 8.0),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    print('place order');
 
-                                    //  showVerificationSheet(context);
-                                  },
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      ReusableText(
-                                          text: 'Add To Cart ',
-                                          style: appStyle(15, Colors.black,
-                                              FontWeight.w600)),
-                                      Obx(
-                                        () => ReusableText(
-                                          text:
-                                              "  \$ ${(widget.food.price! + controller.additivePrice) * controller.count.value}",
-                                          style: appStyle(
-                                              15, kwhite, FontWeight.w600),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 48.h,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  color: kPrimary,
-                                  borderRadius: BorderRadius.circular(20.r)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const SizedBox(
-                                    width: 2,
-                                  ),
-                                  Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          controller.increment();
-                                        },
-                                        child: const Icon(Icons.add_rounded),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: Obx(
-                                          () => ReusableText(
-                                              text: "${controller.count.value}",
-                                              style: appStyle(14, Colors.black,
-                                                  FontWeight.w600)),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          controller.decrement();
-                                        },
-                                        child: const Icon(Icons.remove),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    width: 2,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      AddToCart(widget: widget, controller: controller),
                       SizedBox(
                         height: 20.h,
                       ),

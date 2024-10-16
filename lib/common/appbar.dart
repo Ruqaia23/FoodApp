@@ -29,7 +29,6 @@ class _CustomAppBarState extends State<CustomAppBar> {
     final controller = Get.put(UserLocationController());
     final hookResults = useFetcdefaultAddresses();
     final address = hookResults.data;
-    print(address);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 6.h),
       height: 80.h,
@@ -59,17 +58,21 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       ReusableText(
                           text: 'Deliver to',
                           style: appStyle(13, KSecondary, FontWeight.w600)),
-                      Obx(
-                        () => SizedBox(
+                      Obx(() {
+                        // جلب العنوان الحالي من الـ Controller
+                        final address = controller.address;
+
+                        return SizedBox(
                           width: width * 0.65,
                           child: Text(
-                              controller.address == ''
-                                  ? 'saudi arabia  , riyadh , st1229834 '
-                                  : controller.address,
-                              overflow: TextOverflow.ellipsis,
-                              style: appStyle(11, kgrayLight, FontWeight.w400)),
-                        ),
-                      ),
+                            address.isEmpty
+                                ? 'السعودية، الرياض، شارع 1229834' // توفير عنوان افتراضي إذا كان فارغًا
+                                : address,
+                            overflow: TextOverflow.ellipsis,
+                            style: appStyle(11, kgrayLight, FontWeight.w400),
+                          ),
+                        );
+                      }),
                     ],
                   ),
                 ),
@@ -129,7 +132,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
     LatLng currentLocation =
         LatLng(controller.position.latitude, controller.position.longitude);
     controller.setPosition(currentLocation);
-    // print(currentLocation);
+    print('address $currentLocation');
     controller.getUserAddress(currentLocation);
   }
 }

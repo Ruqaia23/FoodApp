@@ -16,7 +16,7 @@ FetcHook useFetcdefaultAddresses() {
   final apiError = useState<ApiErrorModel?>(null);
 
   Future<void> fetchData() async {
-    final accessToken = box.read('userToken');
+    final accessToken = box.read('token');
 
     Map<String, String> headers = {
       'Content-Type': 'application/json',
